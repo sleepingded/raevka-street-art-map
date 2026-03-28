@@ -48,6 +48,44 @@ ART_OBJECTS.forEach((obj, i) => {
   marker.on('click', () => openPanel(obj, i));
 });
 
+/* ─── СПИСОК ОБЪЕКТОВ ──────────────────────────────────── */
+
+const listPanel  = document.getElementById('list-panel');
+const listToggle = document.getElementById('list-toggle');
+const listClose  = document.getElementById('list-close');
+const listItems  = document.getElementById('list-items');
+
+// Наполняем список
+ART_OBJECTS.forEach((obj, i) => {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <div class="list-item-title">${obj.title}</div>
+    <div class="list-item-meta">${[obj.author, obj.date].filter(Boolean).join(' · ')}</div>
+  `;
+  li.addEventListener('click', () => {
+    map.setView([obj.lat, obj.lng], 16, { animate: true });
+    openPanel(obj, i);
+    closeList();
+  });
+  listItems.appendChild(li);
+});
+
+function openList() {
+  listPanel.classList.add('open');
+  listToggle.classList.add('active');
+}
+
+function closeList() {
+  listPanel.classList.remove('open');
+  listToggle.classList.remove('active');
+}
+
+listToggle.addEventListener('click', () => {
+  listPanel.classList.contains('open') ? closeList() : openList();
+});
+
+listClose.addEventListener('click', closeList);
+
 /* ─── ПАНЕЛЬ ───────────────────────────────────────────── */
 
 const panel   = document.getElementById('panel');
@@ -91,8 +129,6 @@ function closePanel() {
   }
 }
 
-document.getElementById('close-btn').addEventListener('click', closePanel);
-
 /* ─── ЛАЙТБОКС ────────────────────────────────────────── */
 
 const lightbox    = document.getElementById('lightbox');
@@ -125,5 +161,6 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('panel-img').addEventListener('click', function () {
   if (this.src) openLightbox(this.src);
 });
+document.getElementById('close-btn').addEventListener('click', closePanel);
 overlay.addEventListener('click', closePanel);
 map.on('click', closePanel);

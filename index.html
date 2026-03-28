@@ -20,7 +20,7 @@
 
   <header>
     <h1>Стрит&#8209;арт карта</h1>
-    <div class="count">объектов: <span id="art-count">0</span></div>
+    <button class="count" id="list-toggle" title="Показать все объекты">объектов: <span id="art-count">0</span> &#9776;</button>
   </header>
 
   <div id="map"></div>
@@ -48,6 +48,15 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Список объектов -->
+  <div id="list-panel">
+    <div id="list-header">
+      <span>Все объекты</span>
+      <button id="list-close" title="Закрыть">✕</button>
+    </div>
+    <ul id="list-items"></ul>
   </div>
 
   <!-- Лайтбокс -->
