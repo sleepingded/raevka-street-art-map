@@ -91,6 +91,8 @@ function closePanel() {
   }
 }
 
+document.getElementById('close-btn').addEventListener('click', closePanel);
+
 /* ─── ЛАЙТБОКС ────────────────────────────────────────── */
 
 const lightbox    = document.getElementById('lightbox');
