@@ -151,9 +151,9 @@ const ART_OBJECTS = [
     lng: 54.943891,
     title: "Свинья",
     authors: ["LAZY aka Лентяй"],
-    date: "2016-04-23",
+    date: "2018-09-04",
     desc: "",
-    photos: ["photos/bullets_1.jpg"]
+    photos: ["photos/pig_1.jpg"]
   },
   {
     lat: 54.068677, 
@@ -172,5 +172,14 @@ const ART_OBJECTS = [
     date: "2015-10-20",
     desc: "",
     photos: ["photos/friendship_1.jpg"]
+  },
+  {
+    lat: 54.064758, 
+    lng: 54.920939,
+    title: "Гараж",
+    authors: ["LAZY aka Лентяй"],
+    date: "",
+    desc: "",
+    photos: ["photos/garage_1.jpg"]
   },
 ];

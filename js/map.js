@@ -7,7 +7,7 @@
 /* ─── ФОРМАТИРОВАНИЕ ДАТЫ ──────────────────────────────── */
 
 function formatDate(raw) {
-  if (!raw) return '—';
+  if (!raw) return 'Неизвестно';
 
   const parts = raw.split('-');
   const year  = parts[0];
@@ -198,7 +198,8 @@ function createListItem(obj, i) {
   const authorStr = obj.authors && obj.authors.length > 0
     ? obj.authors.join(', ')
     : 'неизвестен';
-  const metaParts = [authorStr, fmtDate(obj.date)].filter(s => s && s !== '—');
+  const formattedDate = fmtDate(obj.date);
+  const metaParts = [authorStr, formattedDate !== 'Неизвестно' ? formattedDate : null].filter(Boolean);
 
   li.innerHTML = `
     ${thumb}
@@ -352,7 +353,9 @@ function openPanel(obj, idx) {
   initGallery(photos);
 
   document.getElementById('panel-title').textContent = obj.title;
-  document.getElementById('panel-desc').textContent  = obj.desc;
+  document.getElementById('panel-desc').textContent  = obj.desc || 'Описание отсутствует';
+  if (!obj.desc) document.getElementById('panel-desc').style.color = 'var(--muted)';
+  else document.getElementById('panel-desc').style.color = '';
 
   // Пометка «уничтожено»
   const existingBadge = document.getElementById('destroyed-badge');
