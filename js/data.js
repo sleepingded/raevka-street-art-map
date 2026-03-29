@@ -102,4 +102,11 @@ const ART_OBJECTS = [
     desc: "",
     photo: "photos/raccon.jpg"
   },
+  {
+    title: "Курение убивает",
+    authors: ["LAZY aka Лентяй"],
+    date: "Май 2022",
+    desc: "Точное местоположение неизвестно",
+    photo: "photos/smoking.jpg"
+  }
 ];

@@ -6,11 +6,13 @@
 
 /* ─── ИНИЦИАЛИЗАЦИЯ КАРТЫ ──────────────────────────────── */
 
-// Центр карты вычисляется автоматически из всех точек
-const center = ART_OBJECTS.length
+// Центр карты вычисляется только по объектам с координатами
+const geoObjects = ART_OBJECTS.filter(o => o.lat && o.lng);
+
+const center = geoObjects.length
   ? [
-      ART_OBJECTS.reduce((s, o) => s + o.lat, 0) / ART_OBJECTS.length,
-      ART_OBJECTS.reduce((s, o) => s + o.lng, 0) / ART_OBJECTS.length
+      geoObjects.reduce((s, o) => s + o.lat, 0) / geoObjects.length,
+      geoObjects.reduce((s, o) => s + o.lng, 0) / geoObjects.length
     ]
   : [55.7558, 37.6173]; // запасной центр если точек нет
 
@@ -37,6 +39,8 @@ document.getElementById('art-count').textContent = ART_OBJECTS.length;
 let activeMarkerEl = null;
 
 ART_OBJECTS.forEach((obj, i) => {
+  if (!obj.lat || !obj.lng) return; // нет координат — нет маркера
+
   const icon = L.divIcon({
     className: '',
     html: `<div class="custom-marker" data-i="${i}"></div>`,
@@ -59,6 +63,8 @@ const listItems  = document.getElementById('list-items');
 ART_OBJECTS.forEach((obj, i) => {
   const li = document.createElement('li');
 
+  const noCoords = !obj.lat || !obj.lng;
+
   const thumb = obj.photo
     ? `<img class="list-item-thumb" src="${obj.photo}" alt="" />`
     : `<div class="list-item-thumb-placeholder"></div>`;
@@ -73,10 +79,12 @@ ART_OBJECTS.forEach((obj, i) => {
     <div class="list-item-info">
       <div class="list-item-title">${obj.title}</div>
       <div class="list-item-meta" data-date="${obj.date || ''}">${metaParts.join(' · ')}</div>
+      ${noCoords ? '<div class="list-item-no-coords">координаты неизвестны</div>' : ''}
     </div>
   `;
+
   li.addEventListener('click', () => {
-    map.setView([obj.lat, obj.lng], 16, { animate: true });
+    if (!noCoords) map.setView([obj.lat, obj.lng], 16, { animate: true });
     openPanel(obj, i);
   });
   listItems.appendChild(li);

@@ -271,6 +271,15 @@ header .count span {
   z-index: 1999;
 }
 
+.list-item-no-coords {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
 /* ─── СПИСОК ОБЪЕКТОВ ─────────────────────────────────── */
 #list-panel {
   position: fixed;
