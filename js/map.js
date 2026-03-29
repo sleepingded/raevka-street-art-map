@@ -88,58 +88,25 @@ Object.values(coordGroups).forEach(group => {
 
   marker.on('click', () => {
     if (isCluster) {
-      openClusterPopup(group);
+      openClusterList(group);
     } else {
       openPanel(group[0].obj, group[0].i);
     }
   });
 });
 
-/* ─── ПОПАП КЛАСТЕРА ───────────────────────────────────── */
-
-const clusterPopup     = document.getElementById('cluster-popup');
-const clusterPopupList = document.getElementById('cluster-popup-list');
-
-function openClusterPopup(group) {
-  closePanel();
-  clusterPopupList.innerHTML = '';
-
-  group.forEach(({ obj, i }) => {
-    const li = document.createElement('li');
-    const authorStr = obj.authors && obj.authors.length > 0
-      ? obj.authors.join(', ')
-      : 'неизвестен';
-    li.innerHTML = `
-      <div class="cluster-item-title">${obj.title}</div>
-      <div class="cluster-item-meta">${[authorStr, fmtDate(obj.date)].filter(s => s && s !== '—').join(' · ')}${obj.destroyed ? ' · <span style="color:var(--accent2)">уничтожено</span>' : ''}</div>
-    `;
-    li.addEventListener('click', () => {
-      closeClusterPopup();
-      openPanel(obj, i);
-    });
-    clusterPopupList.appendChild(li);
-  });
-
-  clusterPopup.classList.add('open');
-}
-
-function closeClusterPopup() {
-  clusterPopup.classList.remove('open');
-}
-
-document.getElementById('cluster-popup-close').addEventListener('click', closeClusterPopup);
-map.on('click', closeClusterPopup);
-
 /* ─── СПИСОК ОБЪЕКТОВ ──────────────────────────────────── */
 
 const listPanel  = document.getElementById('list-panel');
 const listToggle = document.getElementById('list-toggle');
 const listClose  = document.getElementById('list-close');
+const listTitle  = document.getElementById('list-title');
 const listItems  = document.getElementById('list-items');
 
 // Состояние сортировки и фильтров
-let currentSort   = 'date-desc';
-let activeAuthors = new Set();
+let currentSort    = 'date-desc';
+let activeAuthors  = new Set();
+let locationFilter = null;
 
 // Собираем уникальных авторов из всех объектов
 const allAuthors = [...new Set(
@@ -234,10 +201,25 @@ function sortObjects(arr) {
 
 // Фильтрация
 function filterObjects(arr) {
-  if (activeAuthors.size === 0) return arr;
-  return arr.filter(({ obj }) =>
-    obj.authors && obj.authors.some(a => activeAuthors.has(a))
-  );
+  let result = arr;
+  if (locationFilter) {
+    result = result.filter(({ i }) => locationFilter.indices.includes(i));
+  }
+  if (activeAuthors.size > 0) {
+    result = result.filter(({ obj }) =>
+      obj.authors && obj.authors.some(a => activeAuthors.has(a))
+    );
+  }
+  return result;
+}
+
+// Открыть список отфильтрованный по точке на карте
+function openClusterList(group) {
+  locationFilter       = { indices: group.map(({ i }) => i) };
+  listTitle.textContent = `На этой точке (${group.length})`;
+  document.getElementById('list-controls').style.display = 'none';
+  renderList();
+  openList();
 }
 
 // Главная функция — перерисовываем список
@@ -269,6 +251,11 @@ function closeList() {
   listPanel.classList.remove('open');
   listToggle.classList.remove('active');
   if (!panel.classList.contains('open')) overlay.classList.remove('visible');
+  // Сбрасываем фильтр по точке при каждом закрытии
+  locationFilter = null;
+  listTitle.textContent = 'Все объекты';
+  document.getElementById('list-controls').style.display = '';
+  renderList();
 }
 
 listToggle.addEventListener('click', () => {
