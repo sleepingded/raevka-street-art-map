@@ -839,6 +839,31 @@ header .count span {
 
 /* ─── АДАПТИВ ─────────────────────────────────────────── */
 @media (max-width: 600px) {
+
+  /* 1. Шапка — компактнее */
+  header {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  header h1 {
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+
+  header .count {
+    font-size: 0.6rem;
+    padding: 3px 6px;
+  }
+
+  #info-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 0.65rem;
+    margin-left: 4px;
+  }
+
+  /* 2. Панель объекта — вся скроллится */
   #panel {
     width: 100%;
     height: 85dvh;
@@ -855,6 +880,27 @@ header .count span {
     transform: translateY(0);
   }
 
+  #artwork-view {
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Галерея не фиксируется — уходит вверх при скролле */
+  #panel-gallery {
+    flex-shrink: 0;
+  }
+
+  /* Панель автора тоже скроллится целиком */
+  #author-view {
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  #author-photo-wrap {
+    flex-shrink: 0;
+  }
+
+  /* 2. Панель списка */
   #list-panel {
     width: 100%;
     height: 85dvh;
@@ -871,6 +917,31 @@ header .count span {
     transform: translateY(0);
   }
 
+  /* 3. Информационное окно */
+  #about-modal {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    max-height: 85dvh;
+    overflow-y: auto;
+  }
+
+  #about-overlay {
+    align-items: flex-end;
+  }
+
+  #about-content {
+    padding: 24px 20px 16px;
+  }
+
+  #about-title {
+    font-size: 1.5rem;
+  }
+
   #overlay {
     display: block;
     opacity: 0;
@@ -883,3 +954,4 @@ header .count span {
     pointer-events: all;
   }
 }
+
