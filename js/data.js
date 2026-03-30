@@ -25,10 +25,10 @@ const ART_OBJECTS = [
     lat: 54.068740,
     lng: 54.922630,
     title: "Гагарин",
-    authors: [],
-    date: "2019-03",
-    desc: "",
-    photos: ["photos/gagarin.jpg"]
+    authors: ["LAZY aka Лентяй"],
+    date: "2017-04-12",
+    desc: "В марте 2019 года было обновлено автором. Изначальный вид на 2-й картинке",
+    photos: ["photos/gagarin_2.jpg", "photos/gagarin_1.jpg"]
   },
   {
     lat: 54.068713,

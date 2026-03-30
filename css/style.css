@@ -7,7 +7,7 @@
   --accent2:   #ff3c3c;       /* красный акцент */
   --text:      #e0e0e0;
   --muted:     #666;
-  --font-head: 'Bebas Neue', sans-serif;
+  --font-head: 'Russo One', sans-serif;
   --font-body: 'IBM Plex Mono', monospace;
 }
 
@@ -37,8 +37,8 @@ header {
 
 header h1 {
   font-family: var(--font-head);
-  font-size: 2rem;
-  letter-spacing: 0.08em;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
   color: var(--accent);
   text-transform: uppercase;
   line-height: 1;
@@ -319,9 +319,9 @@ header .count span {
 
 .panel-title {
   font-family: var(--font-head);
-  font-size: 2.2rem;
-  letter-spacing: 0.06em;
-  line-height: 1.05;
+  font-size: 1.7rem;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
   color: #fff;
   margin-bottom: 16px;
   text-transform: uppercase;
