@@ -203,6 +203,117 @@ header .count span {
   color: var(--accent);
 }
 
+/* ─── КНОПКА «О ПРОЕКТЕ» ──────────────────────────────── */
+#info-btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+#info-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ─── ИНФОРМАЦИОННОЕ ОКНО ─────────────────────────────── */
+#about-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lb-in 0.25s ease;
+}
+
+#about-overlay.hidden {
+  display: none;
+}
+
+#about-modal {
+  position: relative;
+  width: min(480px, 92vw);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  animation: lb-scale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#about-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+#about-close:hover {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+#about-content {
+  padding: 32px 28px 24px;
+}
+
+#about-title {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+#about-content p {
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+#about-content p:last-child {
+  margin-bottom: 0;
+}
+
+#about-start {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #000;
+  background: var(--accent);
+  border: none;
+  padding: 14px 28px;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.15s;
+}
+
+#about-start:hover {
+  opacity: 0.85;
+}
+
 /* ─── ГАЛЕРЕЯ ─────────────────────────────────────────── */
 #panel-gallery {
   position: relative;

@@ -4,7 +4,35 @@
    изменить поведение карты или панели.
    ══════════════════════════════════════════════════════════ */
 
-// Передаём высоту шапки в CSS чтобы панели начинались под ней
+/* ─── ИНФОРМАЦИОННОЕ ОКНО ──────────────────────────────── */
+
+const aboutOverlay = document.getElementById('about-overlay');
+
+function openAbout() {
+  aboutOverlay.classList.remove('hidden');
+}
+
+function closeAbout() {
+  aboutOverlay.classList.add('hidden');
+}
+
+document.getElementById('about-close').addEventListener('click', closeAbout);
+document.getElementById('about-start').addEventListener('click', closeAbout);
+document.getElementById('info-btn').addEventListener('click', openAbout);
+
+// Закрытие по клику на затемнение
+aboutOverlay.addEventListener('click', (e) => {
+  if (e.target === aboutOverlay) closeAbout();
+});
+
+// Показываем только при первом посещении
+if (!localStorage.getItem('about-seen')) {
+  localStorage.setItem('about-seen', '1');
+} else {
+  closeAbout();
+}
+
+
 const headerEl = document.querySelector('header');
 function setHeaderHeight() {
   document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
