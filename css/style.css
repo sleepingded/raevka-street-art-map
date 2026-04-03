@@ -637,7 +637,7 @@ header .count span {
   position: fixed;
   top: var(--header-h, 56px);
   left: 0;
-  width: 320px;
+  width: 380px;
   height: calc(100dvh - var(--header-h, 56px));
   background: var(--surface);
   border-right: 1px solid var(--border);
@@ -713,8 +713,8 @@ header .count span {
 }
 
 .list-item-thumb {
-  width: 56px;
-  height: 56px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   flex-shrink: 0;
   display: block;
@@ -722,8 +722,8 @@ header .count span {
 }
 
 .list-item-thumb-placeholder {
-  width: 56px;
-  height: 56px;
+  width: 150px;
+  height: 150px;
   flex-shrink: 0;
   background: repeating-linear-gradient(
     45deg,
