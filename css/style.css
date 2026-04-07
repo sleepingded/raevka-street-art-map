@@ -537,15 +537,6 @@ header .count span {
   z-index: 1999;
 }
 
-.list-item-no-coords {
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-top: 4px;
-  opacity: 0.8;
-}
-
 /* Маркер с несколькими работами */
 .custom-marker.cluster {
   background: var(--accent);
@@ -700,7 +691,7 @@ header .count span {
   cursor: pointer;
   transition: background 0.12s;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 14px;
 }
 
@@ -712,19 +703,21 @@ header .count span {
   color: var(--accent);
 }
 
-.list-item-thumb {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+/* Превью */
+.list-item-thumb,
+.list-item-thumb-placeholder {
+  width: 100px;
+  height: 100px;
   flex-shrink: 0;
+}
+
+.list-item-thumb {
+  object-fit: cover;
   display: block;
   background: #1a1a1a;
 }
 
 .list-item-thumb-placeholder {
-  width: 150px;
-  height: 150px;
-  flex-shrink: 0;
   background: repeating-linear-gradient(
     45deg,
     #1a1a1a 0px, #1a1a1a 5px,
@@ -732,16 +725,19 @@ header .count span {
   );
 }
 
+/* Текстовый блок */
 .list-item-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: space-between;
   min-width: 0;
+  flex: 1;
+  padding: 2px 0;
 }
 
 .list-item-title {
   font-family: var(--font-head);
-  font-size: 1.1rem;
+  font-size: 1rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #fff;
@@ -752,12 +748,45 @@ header .count span {
 }
 
 .list-item-meta {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+/* Нижняя строка: статус + координаты */
+.list-item-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.list-item-status {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.list-item-status.exists       { color: #4caf50; border-color: rgba(76,175,80,0.4); }
+.list-item-status.painted_over { color: #ff9800; border-color: rgba(255,152,0,0.4); }
+.list-item-status.damaged      { color: #ff5722; border-color: rgba(255,87,34,0.4); }
+.list-item-status.destroyed    { color: var(--accent2); border-color: rgba(255,60,60,0.4); }
+.list-item-status.unconfirmed  { color: var(--muted);   border-color: rgba(102,102,102,0.4); }
+.list-item-status.updated      { color: #2196f3; border-color: rgba(33,150,243,0.4); }
+
+.list-item-no-coords {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  border: 1px solid rgba(255,60,60,0.4);
+  padding: 1px 6px;
 }
 
 /* Статусы объектов */

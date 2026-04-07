@@ -55,18 +55,6 @@ function getStatus(obj) {
   return STATUS_CONFIG[obj.status] || STATUS_CONFIG['exists'];
 }
 
-function getStatusColor(status) {
-  const colors = {
-    exists:       '#4caf50',
-    painted_over: '#ff9800',
-    damaged:      '#ff5722',
-    destroyed:    'var(--accent2)',
-    unconfirmed:  'var(--muted)',
-    updated:      '#2196f3',
-  };
-  return colors[status] || colors['exists'];
-}
-
 
 
 function formatDate(raw) {
@@ -231,6 +219,13 @@ function createListItem(obj, i) {
   const formattedDate = fmtDate(obj.date);
   const metaParts = [authorStr, formattedDate !== 'Неизвестно' ? formattedDate : null].filter(Boolean);
 
+  const statusHtml = obj.status
+    ? `<span class="list-item-status ${getStatus(obj).cls}">${getStatus(obj).label}</span>`
+    : '';
+  const noCoordsHtml = noCoords
+    ? `<span class="list-item-no-coords">без координат</span>`
+    : '';
+
   li.innerHTML = `
     ${thumb}
     <div class="list-item-info">
@@ -239,8 +234,10 @@ function createListItem(obj, i) {
         <span>${authorStr}</span>
         <span>${formattedDate}</span>
       </div>
-      ${obj.status ? `<div class="list-item-no-coords" style="color:${getStatusColor(obj.status)}">${getStatus(obj).label}</div>` : ''}
-      ${noCoords ? '<div class="list-item-no-coords">координаты неизвестны</div>' : ''}
+      <div class="list-item-footer">
+        ${statusHtml}
+        ${noCoordsHtml}
+      </div>
     </div>
   `;
 
