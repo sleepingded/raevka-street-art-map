@@ -95,12 +95,10 @@ const map = L.map('map', {
   zoomControl: false
 });
 
-// Тёмный тайл — CartoDB Dark Matter
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+// Тёмный тайл — CartoDB Dark Matter с API ключом
+L.tileLayer('https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=cb1_4g3b_1_6745dd53f42f868e9d38fa4c', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-  subdomains: 'abcd',
-  maxZoom: 19,
-  apikey: 'cb1_4g3b_1_6745dd53f42f868e9d38fa4c'
+  maxZoom: 20
 }).addTo(map);
 
 // Кнопки зума — правый нижний угол
