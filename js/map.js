@@ -95,11 +95,10 @@ const map = L.map('map', {
   zoomControl: false
 });
 
-// Тёмный тайл — CartoDB Dark Matter
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-  subdomains: 'abcd',
-  maxZoom: 19
+// Тёмный тайл — Stadia Alidade Smooth Dark (бесплатно, без ключа)
+L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 20
 }).addTo(map);
 
 // Кнопки зума — правый нижний угол
@@ -440,17 +439,36 @@ function openPanel(obj, idx) {
     });
   }
 
-  // Бейдж статуса
+  // Бейджи статуса и координат
   const existingBadge = document.getElementById('status-badge');
   if (existingBadge) existingBadge.remove();
-  const titleEl = document.getElementById('panel-title');
-  const status  = getStatus(obj);
+  const existingNoCoords = document.getElementById('no-coords-badge');
+  if (existingNoCoords) existingNoCoords.remove();
+
+  const titleEl  = document.getElementById('panel-title');
+  const badgeWrap = document.createElement('div');
+  badgeWrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px';
+
   if (obj.status) {
-    const badge = document.createElement('div');
-    badge.id        = 'status-badge';
-    badge.className = `status-badge ${status.cls}`;
+    const status = getStatus(obj);
+    const badge  = document.createElement('span');
+    badge.id          = 'status-badge';
+    badge.className   = `status-badge ${status.cls}`;
     badge.textContent = status.label;
-    titleEl.insertAdjacentElement('beforebegin', badge);
+    badgeWrap.appendChild(badge);
+  }
+
+  if (!obj.lat || !obj.lng) {
+    const badge = document.createElement('span');
+    badge.id          = 'no-coords-badge';
+    badge.className   = 'status-badge';
+    badge.textContent = 'без координат';
+    badge.style.cssText = 'color:var(--muted);border-color:var(--muted);background:rgba(102,102,102,0.08)';
+    badgeWrap.appendChild(badge);
+  }
+
+  if (badgeWrap.children.length > 0) {
+    titleEl.insertAdjacentElement('beforebegin', badgeWrap);
   }
 
   // Авторы — кликабельные теги если есть профиль
